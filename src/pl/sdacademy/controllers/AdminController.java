@@ -8,12 +8,13 @@ import pl.sdacademy.models.AdminRegistry;
  * Created by marcin on 13.12.2017.
  */
 public class AdminController {
+    AdminRegistry adminRegistry = new AdminRegistry();
 
     public String addAdmin(String login, String password) {
         try {
-            Admin temp = AdminRegistry.getInstance().findAdmin(login, password);
+            Admin temp = adminRegistry.getInstance().findAdmin(login, password);
             if (temp == null) {
-                AdminRegistry.addAdminAccount(login, password);
+                adminRegistry.addAdminAccount(login, password);
                 return "Dodano użytkownika o nazwie: " + login;
             }
         } catch (AdminNotFoundException e) {
@@ -23,9 +24,9 @@ public class AdminController {
 
 
     public String removeAdmin(String login, String password) throws AdminNotFoundException {
-        Admin temp = AdminRegistry.getInstance().findAdmin(login, password);
+        Admin temp = adminRegistry.getInstance().findAdmin(login, password);
         if (temp.getLogin().equals(login)) {
-            AdminRegistry.removeAdminAccount(temp);
+            adminRegistry.removeAdminAccount(temp);
             return "Usunięto użytkownika o nazwie: " + login;
         }
         return "Nie znaleziono użytkownika";
