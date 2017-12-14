@@ -5,7 +5,6 @@ import pl.sdacademy.models.Admin;
 import pl.sdacademy.models.AdminRegistry;
 
 import java.util.ArrayList;
-
 /**
  * Created by marcin on 13.12.2017.
  */
@@ -14,6 +13,7 @@ public class AdminController {
 
     public String addAdmin(String login, String password) {
         try {
+
             Admin temp = adminRegistry.findAdmin(login, password);
             if (temp == null) {
                 adminRegistry.addAdminAccount(login, password);

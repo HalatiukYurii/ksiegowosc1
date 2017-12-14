@@ -52,4 +52,5 @@ public class AdminRegistry {
     public ArrayList<Admin> getAdmins() {
         return admins;
     }
+
 }

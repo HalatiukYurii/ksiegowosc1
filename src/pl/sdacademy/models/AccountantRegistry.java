@@ -3,6 +3,7 @@ package pl.sdacademy.models;
 import pl.sdacademy.exceptions.AccountantNotFoundException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AccountantRegistry {
     public static AccountantRegistry instance = null;
@@ -31,10 +32,21 @@ public class AccountantRegistry {
             if (accountant.getLogin().equals(login) && accountant.getPassword().equals(password)) {
                 return accountant;
             }
-
         }
         throw new AccountantNotFoundException();
     }
+
+    public void addAccountantAccount(String login, String password){
+        this.accountants.add(new Accountant(login, password));
+    }
+
+    public void removeAccountantAccount(Accountant accountant){
+        accountants.remove(accountant);
+    }
+    public List<Accountant> getAccountant() {
+        return this.accountants;
+    }
+
 }
 
 
