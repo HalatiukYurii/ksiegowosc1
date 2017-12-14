@@ -21,10 +21,13 @@ public class AdminRegistry {
     private ArrayList<Admin> admins;
 
     public AdminRegistry() {
+        //TODO get list form file
+
         this.admins = new ArrayList<>();
 
         this.admins.add(new Admin("adam", "123"));
         this.admins.add(new Admin("ziutek", "456"));
+
     }
 
 
@@ -37,4 +40,13 @@ public class AdminRegistry {
 
         throw new AdminNotFoundException();
     }
+
+    public void addAdminAccount(String login, String password){
+        this.admins.add(new Admin(login, password));
+    }
+
+    public void removeAdminAccount(Admin admin){
+        admins.remove(admin);
+    }
+
 }
