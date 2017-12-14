@@ -4,6 +4,8 @@ import pl.sdacademy.exceptions.AdminNotFoundException;
 import pl.sdacademy.models.Admin;
 import pl.sdacademy.models.AdminRegistry;
 
+import java.util.ArrayList;
+
 /**
  * Created by marcin on 13.12.2017.
  */
@@ -30,6 +32,17 @@ public class AdminController {
             return "Usunięto użytkownika o nazwie: " + login;
         }
         return "Nie znaleziono użytkownika";
+    }
+
+    public String getAllAdminLogins(){
+        ArrayList<Admin> array = adminRegistry.getAdmins();
+        StringBuilder sb = new StringBuilder();
+        int counter = 1;
+        for(Admin admin : array){
+            sb.append(counter).append(". ").append(admin.getLogin()).append("\n");
+            counter++;
+        }
+        return sb.toString();
     }
 }
 
