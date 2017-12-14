@@ -49,4 +49,8 @@ public class AdminRegistry {
         admins.remove(admin);
     }
 
+    public ArrayList<Admin> getAdmins() {
+        return admins;
+    }
+
 }

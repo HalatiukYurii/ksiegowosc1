@@ -1,6 +1,6 @@
 package pl.sdacademy;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
+import pl.sdacademy.controllers.AdminController;
 import pl.sdacademy.controllers.CompanyController;
 import pl.sdacademy.exceptions.AccountantNotFoundException;
 import pl.sdacademy.exceptions.AdminNotFoundException;
@@ -8,6 +8,7 @@ import pl.sdacademy.models.Accountant;
 import pl.sdacademy.models.AccountantRegistry;
 import pl.sdacademy.models.Admin;
 import pl.sdacademy.models.AdminRegistry;
+import pl.sdacademy.views.AdminView;
 
 import java.util.Scanner;
 
@@ -18,6 +19,7 @@ public class Main {
         LOGGING_IN_AS_ADMIN,
         LOGGING_IN_AS_ACCT,
         LOGGED_IN,
+        ADMIN_OPTIONS,
         CREATING_COMPANY,
         EXIT,
     }
@@ -106,6 +108,7 @@ public class Main {
                     System.out.println("Co chcesz zrobić?");
                     System.out.println(" 1 - wypisać wszystkie firmy");
                     System.out.println(" 2 - dodać firmę");
+                    System.out.println( "3 - zarzadanie kontami administratorow");
                     System.out.println(" 0 - wyjść z programu");
 
                     switch (scanner.nextInt()) {
@@ -117,6 +120,10 @@ public class Main {
 
                         case 2:
                             state = State.CREATING_COMPANY;
+                            scanner.nextLine();
+                            break;
+                        case 3:
+                            state = State.ADMIN_OPTIONS;
                             scanner.nextLine();
                             break;
 
@@ -133,6 +140,56 @@ public class Main {
                     }
                     break;
                 }
+
+                case ADMIN_OPTIONS:
+                    AdminController adminController = new AdminController();
+                    AdminView adminView = new AdminView();
+
+                    String login = null;
+                    String password = null;
+
+                    System.out.println("Co chcesz zrobic?");
+                    System.out.println("1 - wyświetl konta administratorów");
+                    System.out.println("2 - dodaj konto administratora");
+                    System.out.println("3 - usuń konto administratora");
+                    System.out.println("0 - powrót");
+
+                    switch (scanner.nextInt()){
+                        case 1:
+                            adminView.printAdmins();
+
+                            state = State.ADMIN_OPTIONS;
+                            scanner.nextLine();
+                            break;
+                        case 2:
+                            System.out.println("Podaj login: ");
+                            login = scanner.nextLine();
+                            System.out.println("Podaj haslo: ");
+                            password = scanner.nextLine();
+
+                            String result = adminController.addAdmin(login, password);
+                            System.out.println(result);
+                            scanner.nextLine();
+
+                            break;
+                        case 3:
+                            System.out.println("Podaj login: ");
+                            login = scanner.nextLine();
+                            System.out.println("Podaj haslo: ");
+                            password = scanner.nextLine();
+
+                            result = adminController.removeAdmin(login, password);
+                            System.out.println(result);
+                            
+                            scanner.nextLine();
+                            break;
+                        case 0:
+                            state = State.ADMIN_OPTIONS;
+                            scanner.nextLine();
+                            break;
+
+                    }
+                    break;
 
                 case CREATING_COMPANY: {
                     System.out.println("Podaj nazwę nowej firmy:");
