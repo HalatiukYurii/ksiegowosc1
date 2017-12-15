@@ -15,11 +15,11 @@ public class AdminController {
             Admin temp = AdminRegistry.getInstance().findAdmin(login, password);
             if (temp == null) {
                 AdminRegistry.getInstance().addAdminAccount(login, password);
+                System.out.println("Dodano użytkownika o nazwie: " + login);
             }
         } catch (AdminNotFoundException e) {
             System.out.println("Admin o podanym loginie już istnieje!");
         }
-        System.out.println("Dodano użytkownika o nazwie: " + login);
     }
 
 
@@ -28,11 +28,11 @@ public class AdminController {
             Admin temp = AdminRegistry.getInstance().findAdminByLogin(login);
             if (temp != null) {
                 AdminRegistry.getInstance().removeAdminAccount(temp);
+                System.out.println("Usunięto użytkownika o nazwie: " + login);
             }
         } catch (AdminNotFoundException e) {
             System.out.println("Nie znaleziono użytkownika");
         }
-        System.out.println("Usunięto użytkownika o nazwie: " + login);
     }
 
     public static void printAdmins() {

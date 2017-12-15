@@ -171,6 +171,7 @@ public class Main {
                             AdminController.addAdmin(login, password);
 
                             state = State.ADMIN_OPTIONS;
+                            scanner.nextLine();
                             break;
                         case 3:
                             System.out.println("Podaj login: ");
@@ -179,6 +180,7 @@ public class Main {
                             AdminController.removeAdmin(login);
 
                             state = State.ADMIN_OPTIONS;
+                            scanner.nextLine();
                             break;
                         case 4:
                             AccountantController.listAccountants();
@@ -192,6 +194,7 @@ public class Main {
                             password = scanner.nextLine();
                             AccountantController.addAccountant(login, password);
                             state = State.ADMIN_OPTIONS;
+                            scanner.nextLine();
                             break;
                         case 6:
                             System.out.println("Podaj login: ");
@@ -199,7 +202,7 @@ public class Main {
                             AccountantController.removeAccountant(login);
 
                             state = State.ADMIN_OPTIONS;
-
+                            scanner.nextLine();
                             break;
                         case 0:
                             state = State.LOGGED_IN;
