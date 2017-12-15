@@ -1,5 +1,6 @@
 package pl.sdacademy;
 
+import pl.sdacademy.controllers.AccountantController;
 import pl.sdacademy.controllers.AdminController;
 import pl.sdacademy.controllers.CompanyController;
 import pl.sdacademy.exceptions.AccountantNotFoundException;
@@ -10,6 +11,7 @@ import pl.sdacademy.models.Admin;
 import pl.sdacademy.models.AdminRegistry;
 import pl.sdacademy.views.AdminView;
 
+import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 
 public class Main {
@@ -145,21 +147,22 @@ public class Main {
                     AdminController adminController = new AdminController();
                     AdminView adminView = new AdminView();
 
-                    String login = null;
-                    String password = null;
+                    String login;
+                    String password;
 
                     System.out.println("Co chcesz zrobic?");
                     System.out.println("1 - wyświetl konta administratorów");
                     System.out.println("2 - dodaj konto administratora");
                     System.out.println("3 - usuń konto administratora");
+                    System.out.println("4 - wyświetl konta księgowych");
+                    System.out.println("5 - dodaj konto księgowego");
+                    System.out.println("6 - usuń konto księgowego");
                     System.out.println("0 - powrót");
 
                     switch (scanner.nextInt()){
                         case 1:
                             adminView.printAdmins();
-
                             state = State.ADMIN_OPTIONS;
-                            scanner.nextLine();
                             break;
                         case 2:
                             System.out.println("Podaj login: ");
@@ -182,6 +185,28 @@ public class Main {
                             System.out.println(result);
                             
                             scanner.nextLine();
+                            break;
+                        case 4:
+                            AccountantController.listAccountants();
+                            state = State.ADMIN_OPTIONS;
+                            break;
+                        case 5:
+                            System.out.println("Podaj login");
+                            login = scanner.nextLine();
+                            System.out.println("Podaj chasło");
+                            password = scanner.nextLine();
+                            AccountantController.addAccountant(login, password);
+                            state = State.ADMIN_OPTIONS;
+                            break;
+                        case 6:
+                            try{
+                                System.out.println("Podaj login konta księgowego, który chcesz usunąć: ");
+                                login = scanner.nextLine();
+                                AccountantController.removeAccountant(login);
+                            }catch (AccountantNotFoundException e){
+                                System.out.println("Nie ma w bazie księgowego o takim loginie");
+                                state = State.ADMIN_OPTIONS;
+                            }
                             break;
                         case 0:
                             state = State.ADMIN_OPTIONS;

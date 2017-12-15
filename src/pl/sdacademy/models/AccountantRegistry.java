@@ -27,9 +27,9 @@ public class AccountantRegistry {
     }
 
 
-    public Accountant findAccountant(String login, String password) throws AccountantNotFoundException {
+    public Accountant findAccountant(String login) throws AccountantNotFoundException {
         for (Accountant accountant : accountants) {
-            if (accountant.getLogin().equals(login) && accountant.getPassword().equals(password)) {
+            if (accountant.getLogin().equals(login)) {
                 return accountant;
             }
         }
