@@ -27,7 +27,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-	    State state = State.INIT;
+        State state = State.INIT;
         Scanner scanner = new Scanner(System.in);
 
         Admin currentAdmin = null;
@@ -35,7 +35,7 @@ public class Main {
         Accountant currentAcct = null;
 
         while (state != State.EXIT) {
-            switch(state) {
+            switch (state) {
                 case INIT: {
                     System.out.println("Dzień dobry, co chcesz zrobić?");
                     System.out.println(" 1 - zalogować się jako admin");
@@ -110,7 +110,7 @@ public class Main {
                     System.out.println("Co chcesz zrobić?");
                     System.out.println(" 1 - wypisać wszystkie firmy");
                     System.out.println(" 2 - dodać firmę");
-                    System.out.println( "3 - zarzadanie kontami administratorow");
+                    System.out.println("3 - zarzadanie kontami administratorow");
                     System.out.println(" 0 - wyjść z programu");
 
                     switch (scanner.nextInt()) {
@@ -144,9 +144,6 @@ public class Main {
                 }
 
                 case ADMIN_OPTIONS:
-                    AdminController adminController = new AdminController();
-                    AdminView adminView = new AdminView();
-
                     String login;
                     String password;
 
@@ -159,10 +156,11 @@ public class Main {
                     System.out.println("6 - usuń konto księgowego");
                     System.out.println("0 - powrót");
 
-                    switch (scanner.nextInt()){
+                    switch (scanner.nextInt()) {
                         case 1:
-                            adminView.printAdmins();
+                            AdminController.printAdmins();
                             state = State.ADMIN_OPTIONS;
+                            scanner.nextLine(); // needs to clean scanner last input was int
                             break;
                         case 2:
                             System.out.println("Podaj login: ");
@@ -170,25 +168,22 @@ public class Main {
                             System.out.println("Podaj haslo: ");
                             password = scanner.nextLine();
 
-                            String result = adminController.addAdmin(login, password);
-                            System.out.println(result);
-                            scanner.nextLine();
+                            AdminController.addAdmin(login, password);
 
+                            state = State.ADMIN_OPTIONS;
                             break;
                         case 3:
                             System.out.println("Podaj login: ");
                             login = scanner.nextLine();
-                            System.out.println("Podaj haslo: ");
-                            password = scanner.nextLine();
 
-                            result = adminController.removeAdmin(login, password);
-                            System.out.println(result);
-                            
-                            scanner.nextLine();
+                            AdminController.removeAdmin(login);
+
+                            state = State.ADMIN_OPTIONS;
                             break;
                         case 4:
                             AccountantController.listAccountants();
                             state = State.ADMIN_OPTIONS;
+                            scanner.nextLine(); // needs to clean scanner last input was int
                             break;
                         case 5:
                             System.out.println("Podaj login");
@@ -199,18 +194,16 @@ public class Main {
                             state = State.ADMIN_OPTIONS;
                             break;
                         case 6:
-                            try{
-                                System.out.println("Podaj login konta księgowego, który chcesz usunąć: ");
-                                login = scanner.nextLine();
-                                AccountantController.removeAccountant(login);
-                            }catch (AccountantNotFoundException e){
-                                System.out.println("Nie ma w bazie księgowego o takim loginie");
-                                state = State.ADMIN_OPTIONS;
-                            }
+                            System.out.println("Podaj login: ");
+                            login = scanner.nextLine();
+                            AccountantController.removeAccountant(login);
+
+                            state = State.ADMIN_OPTIONS;
+
                             break;
                         case 0:
-                            state = State.ADMIN_OPTIONS;
-                            scanner.nextLine();
+                            state = State.LOGGED_IN;
+                            scanner.nextLine(); // needs to clean scanner last input was int
                             break;
 
                     }

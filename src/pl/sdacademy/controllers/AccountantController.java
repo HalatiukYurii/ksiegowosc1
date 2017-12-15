@@ -9,29 +9,30 @@ import pl.sdacademy.views.AccountantView;
  * Created by marcin on 13.12.2017.
  */
 public class AccountantController {
-    static AccountantRegistry accountantRegistry = new AccountantRegistry();
 
-    public static String addAccountant(String login, String password) {
+    public static void addAccountant(String login, String password) {
         try {
-            Accountant temp = accountantRegistry.getInstance().findAccountant(login, password);
+            Accountant temp = AccountantRegistry.getInstance().findAccountant(login, password);
             if (temp == null) {
-                accountantRegistry.addAccountantAccount(login, password);
-                return "Dodano użytkownika o nazwie: " + login;
+                AccountantRegistry.getInstance().addAccountantAccount(login, password);
+                System.out.println("Dodano użytkownika o nazwie: " + login);
             }
         } catch (AccountantNotFoundException e) {
-                return "Accountant o podanym loginie już istnieje!";
+            System.out.println("Accountant o podanym loginie już istnieje!");
         }
-        return "Accountant o podanym loginie już istnieje!";
     }
 
-
-    public static String removeAccountant(String login) throws AccountantNotFoundException {
-        Accountant temp = accountantRegistry.getInstance().findAccountant(login);
-        if (temp.getLogin().equals(login)) {
-            accountantRegistry.removeAccountantAccount(temp);
-            return "Usunięto użytkownika o nazwie: " + login;
+    public static void removeAccountant(String login) {
+        try {
+            Accountant temp = AccountantRegistry.getInstance().findAccountantByLogin(login);
+            if (temp.getLogin().equals(login)) {
+                AccountantRegistry.getInstance().removeAccountantAccount(temp);
+            }
         }
-        return "Nie znaleziono użytkownika";
+        catch (AccountantNotFoundException e) {
+            System.out.println("Nie znaleziono użytkownika");
+        }
+        System.out.println("Usunięto użytkownika o nazwie: " + login);
     }
 
     public static void listAccountants() {

@@ -18,12 +18,10 @@ public class AdminRegistry {
     }
 
 
-    private ArrayList<Admin> admins;
+    private ArrayList<Admin> admins = new ArrayList<>();
 
-    public AdminRegistry() {
+    private AdminRegistry() {
         //TODO get list form file
-
-        this.admins = new ArrayList<>();
 
         this.admins.add(new Admin("adam", "123"));
         this.admins.add(new Admin("ziutek", "456"));
@@ -32,12 +30,20 @@ public class AdminRegistry {
 
 
     public Admin findAdmin(String login, String password) throws AdminNotFoundException {
-        for(Admin admin : admins) {
+        for(Admin admin : this.admins) {
             if(admin.getLogin().equals(login) && admin.getPassword().equals(password)) {
                 return admin;
             }
         }
+        throw new AdminNotFoundException();
+    }
 
+    public Admin findAdminByLogin(String login) throws AdminNotFoundException{
+        for(Admin admin: this.admins){
+            if(admin.getLogin().equals(login)){
+                return admin;
+            }
+        }
         throw new AdminNotFoundException();
     }
 

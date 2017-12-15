@@ -17,19 +17,26 @@ public class AccountantRegistry {
 
     // TODO login i password z pliku
 
-    private ArrayList<Accountant> accountants;
+    private ArrayList<Accountant> accountants = new ArrayList<>();
 
-    public AccountantRegistry() {
-        this.accountants = new ArrayList<>();
-
+    private AccountantRegistry() {
         this.accountants.add(new Accountant("jan", "123"));
         this.accountants.add(new Accountant("majka", "123"));
     }
 
-
-    public Accountant findAccountant(String login) throws AccountantNotFoundException {
+    public Accountant findAccountant(String login, String password) throws AccountantNotFoundException {
         for (Accountant accountant : accountants) {
-            if (accountant.getLogin().equals(login)) {
+            if (accountant.getLogin().equals(login) &&
+                    accountant.getPassword().equals(password)) {
+                return accountant;
+            }
+        }
+        throw new AccountantNotFoundException();
+    }
+
+    public Accountant findAccountantByLogin(String login) throws AccountantNotFoundException{
+        for(Accountant accountant: this.accountants){
+            if(accountant.getLogin().equals(login)){
                 return accountant;
             }
         }
