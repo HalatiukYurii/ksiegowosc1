@@ -1,9 +1,11 @@
 package pl.sdacademy.models;
 
+import java.io.Serializable;
+
 /**
  * Created by marcin on 13.12.2017.
  */
-public class Company {
+public class Company implements Serializable {
     private String name;
     private int yearFound;
 

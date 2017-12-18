@@ -227,5 +227,6 @@ public class Main {
                 }
             }
         }
+        AccountantRegistry.getInstance().saveData();
     }
 }
