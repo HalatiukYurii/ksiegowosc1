@@ -1,14 +1,15 @@
 package pl.sdacademy.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by marcin on 13.12.2017.
  */
-public class CompanyRegistry {
+public class CompanyRegistry implements Serializable{
     private static CompanyRegistry instance = null;
-
+    final private String filename = "data/company.dat";
     public static CompanyRegistry getInstance() {
         if(instance == null) {
             instance = new CompanyRegistry();

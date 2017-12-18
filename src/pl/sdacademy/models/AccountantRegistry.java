@@ -2,12 +2,13 @@ package pl.sdacademy.models;
 
 import pl.sdacademy.exceptions.AccountantNotFoundException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountantRegistry {
+public class AccountantRegistry implements Serializable{
     public static AccountantRegistry instance = null;
-
+    final private String filename = "data/accountants.dat";
     public static AccountantRegistry getInstance() {
         if (instance == null) {
             instance = new AccountantRegistry();
