@@ -1,6 +1,7 @@
 package pl.sdacademy.models;
 
 import pl.sdacademy.exceptions.AdminNotFoundException;
+import pl.sdacademy.exceptions.DuplicateFoundException;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,15 @@ public class AdminRegistry {
             }
         }
         throw new AdminNotFoundException();
+    }
+
+    public Admin lookForDuplicate(String login) throws DuplicateFoundException{
+        for(Admin admin: this.admins) {
+            if(!admin.getLogin().equals(login)){
+                return null;
+            }
+        }
+        throw new DuplicateFoundException();
     }
 
     public void addAdminAccount(String login, String password){
