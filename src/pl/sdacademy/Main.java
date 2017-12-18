@@ -42,26 +42,24 @@ public class Main {
                     System.out.println(" 2 - zalogować się jako księgowy");
                     System.out.println(" 0 - wyjść z programu");
 
-                    switch (scanner.nextInt()) {
-                        case 1:
+                    String answer = scanner.nextLine();
+
+                    switch (answer) {
+                        case ("1"):
                             state = State.LOGGING_IN_AS_ADMIN;
-                            scanner.nextLine();
                             break;
 
-                        case 2:
+                        case ("2"):
                             state = State.LOGGING_IN_AS_ACCT;
-                            scanner.nextLine();
                             break;
 
-                        case 0:
+                        case ("0"):
                             state = State.EXIT;
-                            scanner.nextLine();
                             break;
 
                         default:
                             System.out.println("Zła odpowiedź");
                             state = State.INIT;
-                            scanner.nextLine();
                             break;
                     }
                     break;
@@ -110,34 +108,31 @@ public class Main {
                     System.out.println("Co chcesz zrobić?");
                     System.out.println(" 1 - wypisać wszystkie firmy");
                     System.out.println(" 2 - dodać firmę");
-                    System.out.println("3 - zarzadanie kontami administratorow");
+                    System.out.println(" 3 - zarzadanie kontami administratorow");
                     System.out.println(" 0 - wyjść z programu");
 
-                    switch (scanner.nextInt()) {
-                        case 1:
+                    String answer = scanner.nextLine();
+
+                    switch (answer) {
+                        case ("1"):
                             CompanyController.listCompanies();
                             state = State.LOGGED_IN;
-                            scanner.nextLine();
                             break;
 
-                        case 2:
+                        case ("2"):
                             state = State.CREATING_COMPANY;
-                            scanner.nextLine();
                             break;
-                        case 3:
+                        case ("3"):
                             state = State.ADMIN_OPTIONS;
-                            scanner.nextLine();
                             break;
 
-                        case 0:
+                        case ("0"):
                             state = State.EXIT;
-                            scanner.nextLine();
                             break;
 
                         default:
                             System.out.println("Zła odpowiedź");
                             state = State.INIT;
-                            scanner.nextLine();
                             break;
                     }
                     break;
@@ -156,13 +151,14 @@ public class Main {
                     System.out.println("6 - usuń konto księgowego");
                     System.out.println("0 - powrót");
 
-                    switch (scanner.nextInt()) {
-                        case 1:
+                    String answer = scanner.nextLine();
+
+                    switch (answer) {
+                        case ("1"):
                             AdminController.printAdmins();
                             state = State.ADMIN_OPTIONS;
-                            scanner.nextLine(); // needs to clean scanner last input was int
                             break;
-                        case 2:
+                        case ("2"):
                             System.out.println("Podaj login: ");
                             login = scanner.nextLine();
                             System.out.println("Podaj haslo: ");
@@ -171,42 +167,36 @@ public class Main {
                             AdminController.addAdmin(login, password);
 
                             state = State.ADMIN_OPTIONS;
-                            scanner.nextLine();
                             break;
-                        case 3:
+                        case ("3"):
                             System.out.println("Podaj login: ");
                             login = scanner.nextLine();
 
                             AdminController.removeAdmin(login);
 
                             state = State.ADMIN_OPTIONS;
-                            scanner.nextLine();
                             break;
-                        case 4:
+                        case ("4"):
                             AccountantController.listAccountants();
                             state = State.ADMIN_OPTIONS;
-                            scanner.nextLine(); // needs to clean scanner last input was int
                             break;
-                        case 5:
+                        case ("5"):
                             System.out.println("Podaj login");
                             login = scanner.nextLine();
-                            System.out.println("Podaj chasło");
+                            System.out.println("Podaj hasło");
                             password = scanner.nextLine();
                             AccountantController.addAccountant(login, password);
                             state = State.ADMIN_OPTIONS;
-                            scanner.nextLine();
                             break;
-                        case 6:
+                        case ("6"):
                             System.out.println("Podaj login: ");
                             login = scanner.nextLine();
                             AccountantController.removeAccountant(login);
 
                             state = State.ADMIN_OPTIONS;
-                            scanner.nextLine();
                             break;
-                        case 0:
+                        case ("0"):
                             state = State.LOGGED_IN;
-                            scanner.nextLine(); // needs to clean scanner last input was int
                             break;
 
                     }

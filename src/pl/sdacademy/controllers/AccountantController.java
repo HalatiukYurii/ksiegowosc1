@@ -1,6 +1,7 @@
 package pl.sdacademy.controllers;
 
 import pl.sdacademy.exceptions.AccountantNotFoundException;
+import pl.sdacademy.exceptions.DuplicateFoundException;
 import pl.sdacademy.models.Accountant;
 import pl.sdacademy.models.AccountantRegistry;
 import pl.sdacademy.views.AccountantView;
@@ -12,11 +13,11 @@ public class AccountantController {
 
     public static void addAccountant(String login, String password) {
         try {
-            Accountant temp = AccountantRegistry.getInstance().findAccountant(login, password);
+            Accountant temp = AccountantRegistry.getInstance().lookForDuplicate(login);
             if (temp == null) {
                 AccountantRegistry.getInstance().addAccountantAccount(login, password);
             }
-        } catch (AccountantNotFoundException e) {
+        } catch (DuplicateFoundException e) {
             System.out.println("Accountant o podanym loginie już istnieje!");
         }
         System.out.println("Dodano użytkownika o nazwie: " + login);
