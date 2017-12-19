@@ -22,7 +22,7 @@ public class AccountantRegistry implements Serializable {
 
     private AccountantRegistry() {
         try {
-            this.accountants = (ArrayList<Accountant>) Serialize.deserialize(filename);
+            this.accountants = (ArrayList<Accountant>) FileHandler.deserialize(filename);
         } catch (IOException e) {
             this.accountants = new ArrayList<>();
         } catch (ClassNotFoundException e) {
@@ -57,12 +57,17 @@ public class AccountantRegistry implements Serializable {
         accountants.remove(accountant);
     }
 
-    public List<Accountant> getAccountant() {
-        return this.accountants;
+    public void saveData() {
+        try {
+            FileHandler.serialize(this.accountants, filename);
+
+        } catch (IOException e) {
+            System.err.println("Write error or file not found.");
+        }
     }
 
-    public void saveData() {
-        Serialize.serialize(accountants, filename);
+    public List<Accountant> getAccountant() {
+        return this.accountants;
     }
 }
 
