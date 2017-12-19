@@ -1,5 +1,6 @@
 package pl.sdacademy.models;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,23 +18,31 @@ public class CompanyRegistry implements Serializable{
         return instance;
     }
 
-
     private ArrayList<Company> companies;
-
+    
     public CompanyRegistry() {
-        this.companies = new ArrayList<>();
-
-        this.companies.add(new Company("Ziutex sp. z o.o.", 1990));
-        this.companies.add(new Company("Krakbud s.j.", 1995));
+        try{
+            this.companies = (ArrayList<Company>) FileHandler.deserialize(filename);
+        }catch (IOException e){
+            this.companies = new ArrayList<>();
+        }catch (ClassNotFoundException e){
+            System.err.println("Serialization error!");
+        }
     }
-
 
     public List<Company> getCompanies() {
         return this.companies;
     }
 
-
     public void add(Company company) {
         this.companies.add(company);
+    }
+
+    public void saveData(String filename){
+        try {
+            FileHandler.serialize(this.companies, filename);
+        }catch (IOException e){
+            System.err.println("Write error or file not found.");
+        }
     }
 }
