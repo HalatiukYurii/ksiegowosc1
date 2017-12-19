@@ -12,6 +12,7 @@ public class Accountant {
         this.password = password;
     }
 
+
     public String getLogin() {
         return login;
     }

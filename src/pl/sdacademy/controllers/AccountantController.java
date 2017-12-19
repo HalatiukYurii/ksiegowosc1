@@ -13,7 +13,7 @@ public class AccountantController {
 
     public String addAccountant(String login, String password) {
         try {
-            Accountant temp = accountantRegistry.getInstance().findAccountant(login, password);
+            Accountant temp = accountantRegistry.getInstance().findAccountant(login);
             if (temp == null) {
                 accountantRegistry.addAccountantAccount(login, password);
                 return "Dodano użytkownika o nazwie: " + login;
@@ -26,7 +26,7 @@ public class AccountantController {
 
 
     public String removeAccountant(String login, String password) throws AccountantNotFoundException {
-        Accountant temp = accountantRegistry.getInstance().findAccountant(login, password);
+        Accountant temp = accountantRegistry.getInstance().findAccountant(login);
         if (temp.getLogin().equals(login)) {
             accountantRegistry.removeAccountantAccount(temp);
             return "Usunięto użytkownika o nazwie: " + login;

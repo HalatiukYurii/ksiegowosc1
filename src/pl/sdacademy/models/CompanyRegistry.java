@@ -1,5 +1,7 @@
 package pl.sdacademy.models;
 
+import pl.sdacademy.exceptions.CompanyNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public class CompanyRegistry {
     private static CompanyRegistry instance = null;
 
     public static CompanyRegistry getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new CompanyRegistry();
         }
         return instance;
@@ -22,17 +24,33 @@ public class CompanyRegistry {
     public CompanyRegistry() {
         this.companies = new ArrayList<>();
 
-        this.companies.add(new Company("Ziutex sp. z o.o.", 1990));
-        this.companies.add(new Company("Krakbud s.j.", 1995));
+        this.companies.add(new Company("Ziutex sp. z o.o.", 1990, " 7251801126"));
+        this.companies.add(new Company("Krakbud s.j.", 1995, "4582668978"));
     }
 
+    public Company findCompany(String name) throws CompanyNotFoundException {
+        for (Company company : companies) {
+            if (company.getName().equals(name)) {
+                return company;
+            }
+        }
+        throw new CompanyNotFoundException();
+    }
 
     public List<Company> getCompanies() {
         return this.companies;
     }
 
-
     public void add(Company company) {
         this.companies.add(company);
+    }
+
+    public String removeCompany(String name)throws CompanyNotFoundException {
+        try {
+            Company temp = findCompany(name);
+                companies.remove(temp);
+        } catch (CompanyNotFoundException e) {
+           return "Firma nie istnieje";
+        }
     }
 }

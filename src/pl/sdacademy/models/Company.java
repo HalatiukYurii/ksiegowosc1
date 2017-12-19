@@ -1,5 +1,7 @@
 package pl.sdacademy.models;
 
+import pl.sdacademy.exceptions.AccountantNotFoundException;
+
 import java.util.ArrayList;
 
 /**
@@ -11,18 +13,17 @@ public class Company {
     private int yearFound;
     private String nip;
 
+
     public Company(String name, int yearFound, String nip) {
         this.name = name;
         this.yearFound = yearFound;
         this.nip = nip;
     }
 
-    private ArrayList<Company> accountants;
+    private ArrayList<Accountant> accountantsCompany = new ArrayList<>();
 
-    public void AccountantRegistry() {
-        this.accountants = new ArrayList<>();
-
-        this.accountants.add(new Accountant("jan")); // FIXME
+    public void assignAccountant(Accountant accountant) throws AccountantNotFoundException {
+       accountantsCompany.add(accountant);
     }
 
     public String getName() {
