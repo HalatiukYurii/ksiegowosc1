@@ -9,8 +9,12 @@ import java.util.List;
  */
 public class AccountantView {
     public static void printAccountants(List<Accountant> accountants) {
-        for (Accountant accountant : accountants) {
-            System.out.println("login: " + accountant.getLogin());
+        try {
+            for (Accountant accountant : accountants) {
+                System.out.println("login: " + accountant.getLogin());
+            }
+        }catch (NullPointerException e){
+            System.out.println("Empty!");
         }
     }
 }

@@ -1,6 +1,7 @@
 package pl.sdacademy.controllers;
 
 import pl.sdacademy.exceptions.AccountantNotFoundException;
+import pl.sdacademy.exceptions.DuplicateFoundException;
 import pl.sdacademy.models.Accountant;
 import pl.sdacademy.models.AccountantRegistry;
 import pl.sdacademy.views.AccountantView;
@@ -9,29 +10,31 @@ import pl.sdacademy.views.AccountantView;
  * Created by marcin on 13.12.2017.
  */
 public class AccountantController {
-    AccountantRegistry accountantRegistry = new AccountantRegistry();
 
-    public String addAccountant(String login, String password) {
+    public static void addAccountant(String login, String password) {
         try {
-            Accountant temp = accountantRegistry.getInstance().findAccountant(login);
+            Accountant temp = AccountantRegistry.getInstance().lookForDuplicate(login);
             if (temp == null) {
-                accountantRegistry.addAccountantAccount(login, password);
-                return "Dodano użytkownika o nazwie: " + login;
+                AccountantRegistry.getInstance().addAccountantAccount(login, password);
             }
-        } catch (AccountantNotFoundException e) {
-                return "Accountant o podanym loginie już istnieje!";
+        } catch (DuplicateFoundException e) {
+            System.out.println("Accountant o podanym loginie już istnieje!");
         }
-        return "Accountant o podanym loginie już istnieje!";
+        System.out.println("Dodano użytkownika o nazwie: " + login);
     }
 
-
-    public String removeAccountant(String login, String password) throws AccountantNotFoundException {
-        Accountant temp = accountantRegistry.getInstance().findAccountant(login);
-        if (temp.getLogin().equals(login)) {
-            accountantRegistry.removeAccountantAccount(temp);
-            return "Usunięto użytkownika o nazwie: " + login;
+    public static void removeAccountant(String login) {
+        try {
+            Accountant temp = AccountantRegistry.getInstance().findAccountantByLogin(login);
+            if (temp.getLogin().equals(login)) {
+                AccountantRegistry.getInstance().removeAccountantAccount(temp);
+                System.out.println("Usunięto użytkownika o nazwie: " + login);
+            }
         }
-        return "Nie znaleziono użytkownika";
+        catch (AccountantNotFoundException e) {
+            System.out.println("Nie znaleziono użytkownika");
+        }
+
     }
 
     public static void listAccountants() {

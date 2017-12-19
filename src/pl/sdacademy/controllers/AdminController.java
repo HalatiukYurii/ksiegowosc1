@@ -1,51 +1,45 @@
 package pl.sdacademy.controllers;
 
 import pl.sdacademy.exceptions.AdminNotFoundException;
+import pl.sdacademy.exceptions.DuplicateFoundException;
 import pl.sdacademy.models.Admin;
 import pl.sdacademy.models.AdminRegistry;
+import pl.sdacademy.views.AdminView;
 
 import java.util.ArrayList;
 /**
  * Created by marcin on 13.12.2017.
  */
 public class AdminController {
-    AdminRegistry adminRegistry = new AdminRegistry();
-
-    public String addAdmin(String login, String password) {
+    public static void addAdmin(String login, String password) {
         try {
-
-            Admin temp = adminRegistry.findAdmin(login, password);
+            Admin temp = AdminRegistry.getInstance().lookForDuplicate(login);
             if (temp == null) {
-                adminRegistry.addAdminAccount(login, password);
+                AdminRegistry.getInstance().addAdminAccount(login, password);
+                System.out.println("Dodano użytkownika o nazwie: " + login);
             }
-        } catch (AdminNotFoundException e) {
-            return "Admin o podanym loginie już istnieje!";
+        } catch (DuplicateFoundException e) {
+            System.out.println("Admin o podanym loginie już istnieje!");
         }
-        return "Dodano użytkownika o nazwie: " + login;
     }
 
 
-    public String removeAdmin(String login, String password) {
+    public static void removeAdmin(String login) {
         try {
-            Admin temp = adminRegistry.findAdmin(login, password);
-            if (temp.getLogin().equals(login)) {
-                adminRegistry.removeAdminAccount(temp);
+            Admin temp = AdminRegistry.getInstance().findAdminByLogin(login);
+            if (temp != null) {
+                AdminRegistry.getInstance().removeAdminAccount(temp);
+                System.out.println("Usunięto użytkownika o nazwie: " + login);
+                temp = null;
             }
         } catch (AdminNotFoundException e) {
-            return "Nie znaleziono użytkownika";
+            System.out.println("Nie znaleziono użytkownika");
         }
-        return "Usunięto użytkownika o nazwie: " + login;
+
     }
 
-    public String getAllAdminLogins() {
-        ArrayList<Admin> array = adminRegistry.getAdmins();
-        StringBuilder sb = new StringBuilder();
-        int counter = 1;
-        for (Admin admin : array) {
-            sb.append(counter).append(". ").append(admin.getLogin()).append("\n");
-            counter++;
-        }
-        return sb.toString();
+    public static void printAdmins() {
+        AdminView.printAdmins(AdminRegistry.getInstance().getAdmins());
     }
 }
 
