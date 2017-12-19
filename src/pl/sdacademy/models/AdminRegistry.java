@@ -1,6 +1,7 @@
 package pl.sdacademy.models;
 
 import pl.sdacademy.exceptions.AdminNotFoundException;
+import pl.sdacademy.exceptions.DuplicateFoundException;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -53,7 +54,17 @@ public class AdminRegistry implements Serializable {
         throw new AdminNotFoundException();
     }
 
-    public void addAdminAccount(String login, String password) {
+
+    public Admin lookForDuplicate(String login) throws DuplicateFoundException{
+        for(Admin admin: this.admins) {
+            if(!admin.getLogin().equals(login)){
+                return null;
+            }
+        }
+        throw new DuplicateFoundException();
+    }
+
+    public void addAdminAccount(String login, String password){
         this.admins.add(new Admin(login, password));
     }
 

@@ -1,6 +1,7 @@
 package pl.sdacademy.models;
 
 import pl.sdacademy.exceptions.AccountantNotFoundException;
+import pl.sdacademy.exceptions.DuplicateFoundException;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -53,7 +54,17 @@ public class AccountantRegistry implements Serializable {
         this.accountants.add(new Accountant(login, password));
     }
 
-    public void removeAccountantAccount(Accountant accountant) {
+
+    public Accountant lookForDuplicate(String login) throws DuplicateFoundException {
+        for(Accountant accountant: this.accountants) {
+            if(!accountant.getLogin().equals(login)){
+                return null;
+            }
+        }
+        throw new DuplicateFoundException();
+    }
+
+    public void removeAccountantAccount(Accountant accountant){
         accountants.remove(accountant);
     }
 
