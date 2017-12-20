@@ -2,6 +2,7 @@ package pl.sdacademy.models;
 
 import pl.sdacademy.exceptions.AccountantNotFoundException;
 import pl.sdacademy.exceptions.CompanyNotFoundException;
+import pl.sdacademy.exceptions.DuplicateFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,15 @@ public class CompanyRegistry {
         } catch (CompanyNotFoundException e) {
             // return "Firma nie istnieje";
         }
+    }
+
+    public Company lookForDuplicate(String nip) throws DuplicateFoundException {
+        for (Company company : this.companies) {
+            if (company.getNip().equals(nip)) {
+                return null;
+            }
+        }
+        throw new DuplicateFoundException();
     }
 
     public void assignAccountant(String name, String login) throws AccountantNotFoundException, CompanyNotFoundException {
