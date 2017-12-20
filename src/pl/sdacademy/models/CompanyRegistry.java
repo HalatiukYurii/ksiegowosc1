@@ -1,5 +1,6 @@
 package pl.sdacademy.models;
 
+import pl.sdacademy.exceptions.AccountantNotFoundException;
 import pl.sdacademy.exceptions.CompanyNotFoundException;
 
 import java.util.ArrayList;
@@ -45,12 +46,21 @@ public class CompanyRegistry {
         this.companies.add(company);
     }
 
-    public String removeCompany(String name)throws CompanyNotFoundException {
+    public void removeCompany(String name) throws CompanyNotFoundException {
         try {
             Company temp = findCompany(name);
-                companies.remove(temp);
+            companies.remove(temp);
         } catch (CompanyNotFoundException e) {
-           return "Firma nie istnieje";
+            // return "Firma nie istnieje";
         }
+    }
+
+    public void assignAccountant(String name, String login) throws AccountantNotFoundException, CompanyNotFoundException {
+
+        Accountant accountant = AccountantRegistry.getInstance().findAccountantByLogin(login);
+
+        Company company = findCompany(name);
+
+        company.assignAccountant(accountant.getLogin());
     }
 }

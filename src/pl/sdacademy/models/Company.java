@@ -20,9 +20,9 @@ public class Company {
         this.nip = nip;
     }
 
-    private ArrayList<Accountant> accountantsCompany = new ArrayList<>();
+    private ArrayList<String> accountantsCompany = new ArrayList<>();
 
-    public void assignAccountant(Accountant accountant) throws AccountantNotFoundException {
+    public void assignAccountant(String accountant) {
        accountantsCompany.add(accountant);
     }
 

@@ -1,6 +1,7 @@
 package pl.sdacademy.views;
 
 import pl.sdacademy.models.Company;
+import pl.sdacademy.models.CompanyRegistry;
 
 import java.util.List;
 
@@ -13,4 +14,14 @@ public class CompanyView {
             System.out.println(company.getName() + " (rok założenia: " + company.getYearFound() + ")" + "nip: " + company.getNip());
         }
     }
+
+    public static String assignedAccountant (String name, String login) {
+        return "Ksiegowy " + login +  " zostal przydzielony do firmy " + name;
+    }
+
+    public static String companyAdded () {
+        System.out.println("Firma " + );
+    }
+
+
 }

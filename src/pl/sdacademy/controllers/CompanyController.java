@@ -1,5 +1,6 @@
 package pl.sdacademy.controllers;
 
+import pl.sdacademy.exceptions.AccountantNotFoundException;
 import pl.sdacademy.exceptions.AdminNotFoundException;
 import pl.sdacademy.exceptions.CompanyNotFoundException;
 import pl.sdacademy.models.Admin;
@@ -14,13 +15,29 @@ public class CompanyController {
     public static void createCompany(String name, int yearFound, String nip) {
         CompanyRegistry.getInstance().add(new Company(name, yearFound, nip));
     }
-    
+
     public static void listCompanies() {
         CompanyView.printCompanies(CompanyRegistry.getInstance().getCompanies());
 
     }
 
-    public static String removeCompany(String name) {
-        CompanyRegistry.getInstance().removeCompany(name);
+    public static void removeCompany(String name) {
+        try {
+            CompanyRegistry.getInstance().removeCompany(name);
+
+        } catch (CompanyNotFoundException e) {
+
+        }
+    }
+
+    public static void assignCompany(String name, String login) {
+        try {
+            CompanyRegistry.getInstance().assignAccountant(name, login);
+        } catch (CompanyNotFoundException e) {
+
+        } catch (AccountantNotFoundException e) {
+
+        }
+        CompanyView.assignedAccountant(name, login);
     }
 }

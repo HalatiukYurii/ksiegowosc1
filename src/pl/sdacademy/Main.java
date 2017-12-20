@@ -223,7 +223,7 @@ public class Main {
                     int yearFound = scanner.nextInt();
                     scanner.nextLine();
 
-                    CompanyController.createCompany(name, yearFound);
+//                    CompanyController.createCompany(name, yearFound, nip);
 
                     state = State.LOGGED_IN;
                     break;
