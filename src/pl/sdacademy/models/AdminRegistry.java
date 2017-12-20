@@ -2,6 +2,8 @@ package pl.sdacademy.models;
 
 import pl.sdacademy.exceptions.AdminNotFoundException;
 import pl.sdacademy.exceptions.DuplicateFoundException;
+import pl.sdacademy.exceptions.WrongLoginException;
+import pl.sdacademy.exceptions.WrongPasswordException;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -14,7 +16,7 @@ public class AdminRegistry implements Serializable {
     private static AdminRegistry instance = null;
     final private String filename = "data/admin.dat";
 
-    public static AdminRegistry getInstance() {
+    public static AdminRegistry getInstance() throws WrongPasswordException, WrongLoginException, DuplicateFoundException {
         if (instance == null) {
             instance = new AdminRegistry();
         }
@@ -24,7 +26,7 @@ public class AdminRegistry implements Serializable {
 
     private ArrayList<Admin> admins;
 
-    private AdminRegistry() {
+    private AdminRegistry() throws WrongPasswordException, WrongLoginException, DuplicateFoundException {
         try {
             admins = (ArrayList<Admin>) FileHandler.deserialize(filename);
         } catch (IOException e) {
@@ -64,7 +66,7 @@ public class AdminRegistry implements Serializable {
         throw new DuplicateFoundException();
     }
 
-    public void addAdminAccount(String login, String password){
+    public void addAdminAccount(String login, String password) throws WrongLoginException, WrongPasswordException, DuplicateFoundException{
         this.admins.add(new Admin(login, password));
     }
 

@@ -2,6 +2,8 @@ package pl.sdacademy.controllers;
 
 import pl.sdacademy.exceptions.AdminNotFoundException;
 import pl.sdacademy.exceptions.DuplicateFoundException;
+import pl.sdacademy.exceptions.WrongLoginException;
+import pl.sdacademy.exceptions.WrongPasswordException;
 import pl.sdacademy.models.Admin;
 import pl.sdacademy.models.AdminRegistry;
 import pl.sdacademy.views.AdminView;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  * Created by marcin on 13.12.2017.
  */
 public class AdminController {
-    public static void addAdmin(String login, String password) {
+    public static void addAdmin(String login, String password) throws WrongLoginException, WrongPasswordException{
         try {
             Admin temp = AdminRegistry.getInstance().lookForDuplicate(login);
             if (temp == null) {
@@ -24,7 +26,7 @@ public class AdminController {
     }
 
 
-    public static void removeAdmin(String login) {
+    public static void removeAdmin(String login) throws WrongLoginException, WrongPasswordException, DuplicateFoundException{
         try {
             Admin temp = AdminRegistry.getInstance().findAdminByLogin(login);
             if (temp != null) {
@@ -38,7 +40,7 @@ public class AdminController {
 
     }
 
-    public static void printAdmins() {
+    public static void printAdmins() throws WrongLoginException, WrongPasswordException,DuplicateFoundException {
         AdminView.printAdmins(AdminRegistry.getInstance().getAdmins());
     }
 }

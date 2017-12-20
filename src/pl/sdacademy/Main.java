@@ -3,8 +3,7 @@ package pl.sdacademy;
 import pl.sdacademy.controllers.AccountantController;
 import pl.sdacademy.controllers.AdminController;
 import pl.sdacademy.controllers.CompanyController;
-import pl.sdacademy.exceptions.AccountantNotFoundException;
-import pl.sdacademy.exceptions.AdminNotFoundException;
+import pl.sdacademy.exceptions.*;
 import pl.sdacademy.models.Accountant;
 import pl.sdacademy.models.AccountantRegistry;
 import pl.sdacademy.models.Admin;
@@ -26,7 +25,7 @@ public class Main {
         EXIT,
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws WrongLoginException, WrongPasswordException, DuplicateFoundException {
         State state = State.INIT;
         Scanner scanner = new Scanner(System.in);
 
@@ -80,8 +79,13 @@ public class Main {
                     } catch (AdminNotFoundException e) {
                         System.out.println("Zły login lub hasło");
                         state = State.INIT;
+                    } catch (WrongLoginException e) {
+
+                    } catch (WrongPasswordException e) {
+
+                    } catch (DuplicateFoundException e) {
+                        break;
                     }
-                    break;
                 }
 
                 case LOGGING_IN_AS_ACCT: {
