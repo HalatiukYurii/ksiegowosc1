@@ -49,11 +49,12 @@ public class AccountantRegistry implements Serializable {
         this.accountants.add(new Accountant(login, password));
     }
 
-
     public void removeAccountant(String login) throws AccountantNotFoundException {
         for (Accountant accountant : accountants) {
-            if (accountant.getLogin().equals(login))
+            if (accountant.getLogin().equals(login)) {
                 this.accountants.remove(accountant);
+                return;
+            }
         }
         throw new AccountantNotFoundException();
     }
@@ -61,7 +62,6 @@ public class AccountantRegistry implements Serializable {
     public void saveData() {
         try {
             FileHandler.serialize(this.accountants, filename);
-
         } catch (IOException e) {
             System.err.println("Write error or file not found.");
         }

@@ -2,7 +2,6 @@ package pl.sdacademy;
 
 import pl.sdacademy.controllers.AccountantController;
 import pl.sdacademy.controllers.AdminController;
-import pl.sdacademy.controllers.CompanyController;
 import pl.sdacademy.models.AccountantRegistry;
 import pl.sdacademy.models.AdminRegistry;
 

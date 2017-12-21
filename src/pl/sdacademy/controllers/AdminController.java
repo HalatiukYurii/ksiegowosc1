@@ -1,8 +1,7 @@
 package pl.sdacademy.controllers;
 
-import pl.sdacademy.exceptions.AdminNotFoundException;
-import pl.sdacademy.exceptions.DuplicateFoundException;
-import pl.sdacademy.exceptions.MinimumAccountException;
+import pl.sdacademy.exceptions.*;
+import pl.sdacademy.helpers.ValidateUser;
 import pl.sdacademy.models.AdminRegistry;
 import pl.sdacademy.views.AdminView;
 
@@ -12,10 +11,16 @@ import pl.sdacademy.views.AdminView;
 public class AdminController {
     public static void addAdmin(String login, String password) {
         try {
+            ValidateUser.validateLogin(login);
+            ValidateUser.validatePassword(password);
             AdminRegistry.getInstance().addAdminAccount(login, password);
             System.out.println(AdminView.printAddSuccess(login));
         } catch (DuplicateFoundException e) {
             System.out.println(AdminView.printDuplicateFound(login));
+        }catch (WrongLoginException e){
+            System.out.println(AdminView.printWrongLogin());
+        }catch (WrongPasswordException e){
+            System.out.println(AdminView.printWrongPassword());
         }
     }
 

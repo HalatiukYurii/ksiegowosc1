@@ -36,4 +36,11 @@ public class AccountantView {
         return "Usunieto uzytkownika " + login;
     }
 
+    public static String printWrongLogin(){
+        return "Login musi miec co najmniej 4 znaki, dozwolone znaki to a-b 0-9 i .(kropka)";
+    }
+
+    public static String printWrongPassword(){
+        return "Haslo musi miec co najmniej 6 znakow, nie moze zawierac spacji ' '";
+    }
 }

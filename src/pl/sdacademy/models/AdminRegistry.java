@@ -52,8 +52,8 @@ public class AdminRegistry implements Serializable {
         this.admins.add(new Admin(login, password));
     }
 
-    public void removeAdminAccount(String login) throws AdminNotFoundException, MinimumAccountException{
-        if(this.admins.size() <= 1){
+    public void removeAdminAccount(String login) throws AdminNotFoundException, MinimumAccountException {
+        if (this.admins.size() <= 1) {
             throw new MinimumAccountException();
         }
         for (Admin admin : admins) {

@@ -3,18 +3,25 @@ package pl.sdacademy.helpers;
 import pl.sdacademy.exceptions.WrongLoginException;
 import pl.sdacademy.exceptions.WrongPasswordException;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class ValidateUser {
+    public static void validateLogin (String login) throws WrongLoginException{
+        Pattern pattern = Pattern.compile("[a-z0-9.]");
+        Matcher matcher = pattern.matcher(login);
+
+        if (login.length() < 4 || !matcher.find()){
+            throw new WrongLoginException();
+        }
+    }
 
     public static void validatePassword (String password) throws WrongPasswordException{
-        if(password.length() < 6 || password.matches("//s")){
-            throw new WrongPasswordException("Nieprawidłowe hasło! Hasło powinno zawierać conajmniej 4 znaki i nie zawierać spacji.");
+        if(password.length() < 6 || password.contains(" ")){
+            throw new WrongPasswordException();
         }
     }
 
-    public static void validateLogin (String login) throws WrongLoginException{
-        if (login.length() < 4 || login.contains(" ")){
-            throw new WrongLoginException("Nieprawidłowy login! Login powinnien zawierać conajmniej 6 znaków i nie zawierać spacji.");
-        }
-    }
+
 }
