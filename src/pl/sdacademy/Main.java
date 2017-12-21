@@ -5,6 +5,7 @@ import pl.sdacademy.controllers.AdminController;
 import pl.sdacademy.controllers.CompanyController;
 import pl.sdacademy.exceptions.AccountantNotFoundException;
 import pl.sdacademy.exceptions.AdminNotFoundException;
+import pl.sdacademy.exceptions.DuplicateFoundException;
 import pl.sdacademy.exceptions.IncorrectNipException;
 import pl.sdacademy.models.*;
 import pl.sdacademy.views.AdminView;
@@ -93,7 +94,7 @@ public class Main {
                         currentAcct = AccountantRegistry.getInstance().findAccountant(login, password);
                         System.out.println("Dzień dobry " + currentAcct.getLogin());
                         state = State.LOGGED_IN;
-                        // FIXME poprawic funkcje ksiegowego po zalogowaniu
+
 
                     } catch (AccountantNotFoundException e) {
                         System.out.println("Zły login lub hasło");
@@ -226,13 +227,15 @@ public class Main {
 
 
 //                    CompanyController.createCompany(name, yearFound, nip);
-                    
+
 
                     try {
                         Company temp = new Company(name, yearFound, nip);
                     } catch (IncorrectNipException e) {
                         System.out.println("Podano nieprawidlowy nip, sprobuj ponownie:");
                         e.printStackTrace();
+                    } catch (DuplicateFoundException e) {
+                        System.out.println("Firma o podanym nipie istnieje w bazie");
                     }
                     state = State.LOGGED_IN;
                     break;

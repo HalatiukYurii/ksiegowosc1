@@ -3,6 +3,7 @@ package pl.sdacademy.models;
 import pl.sdacademy.exceptions.AccountantNotFoundException;
 import pl.sdacademy.exceptions.CompanyNotFoundException;
 import pl.sdacademy.exceptions.DuplicateFoundException;
+import pl.sdacademy.exceptions.IncorrectNipException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 public class CompanyRegistry {
     private static CompanyRegistry instance = null;
 
-    public static CompanyRegistry getInstance() {
+    public static CompanyRegistry getInstance() throws DuplicateFoundException, IncorrectNipException {
         if (instance == null) {
             instance = new CompanyRegistry();
         }
@@ -23,7 +24,7 @@ public class CompanyRegistry {
 
     private ArrayList<Company> companies;
 
-    public CompanyRegistry() {
+    public CompanyRegistry() throws DuplicateFoundException, IncorrectNipException {
         this.companies = new ArrayList<>();
 
         this.companies.add(new Company("Ziutex sp. z o.o.", 1990, " 7251801126"));
@@ -56,13 +57,13 @@ public class CompanyRegistry {
         }
     }
 
-    public Company lookForDuplicate(String nip) throws DuplicateFoundException {
-        for (Company company : this.companies) {
+    public boolean lookForDuplicate(String nip) {
+        for (Company company : companies) {
             if (company.getNip().equals(nip)) {
-                return null;
+                return true;
             }
         }
-        throw new DuplicateFoundException();
+        return false;
     }
 
     public void assignAccountant(String name, String login) throws AccountantNotFoundException, CompanyNotFoundException {
