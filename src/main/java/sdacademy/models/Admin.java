@@ -1,5 +1,10 @@
 package sdacademy.models;
 
+import pl.sdacademy.exceptions.DuplicateFoundException;
+import pl.sdacademy.exceptions.WrongLoginException;
+import pl.sdacademy.exceptions.WrongPasswordException;
+import pl.sdacademy.helpers.ValidateUser;
+
 import java.io.Serializable;
 
 /**
