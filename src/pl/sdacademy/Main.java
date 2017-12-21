@@ -131,7 +131,6 @@ public class Main {
                     switch (answer) {
                         case ("1"):
                             AdminController.printAdmins();
-                            state = State.ADMIN_ACCOUNTS_OPTIONS;
                             break;
 
                         case ("2"):
@@ -139,24 +138,19 @@ public class Main {
                             login = scanner.nextLine();
                             System.out.println("Podaj haslo: ");
                             password = scanner.nextLine();
-
                             AdminController.addAdmin(login, password);
-
-                            state = State.ADMIN_ACCOUNTS_OPTIONS;
                             break;
 
                         case ("3"):
                             System.out.println("Podaj login: ");
                             login = scanner.nextLine();
-
                             AdminController.removeAdmin(login);
-
-                            state = State.ADMIN_ACCOUNTS_OPTIONS;
                             break;
 
                         case ("0"):
                             state = State.LOGGED_AS_ADMIN;
                             break;
+
                         default: {
                             System.out.println("Zła odpowiedź.");
                             state = State.ADMIN_ACCOUNTS_OPTIONS;
@@ -168,7 +162,7 @@ public class Main {
                 case ACCT_ACCOUNTS_OPTIONS: {
                     String login, password;
 
-                    System.out.println("Co chcesz zrobic?");
+                    System.out.println("Konta ksiegowych?");
                     System.out.println("1 - wyświetl konta ksiegowych");
                     System.out.println("2 - dodaj konto ksiegowych");
                     System.out.println("3 - usuń konto ksiegowych");
@@ -177,17 +171,37 @@ public class Main {
                     String answer = scanner.nextLine();
                     switch (answer) {
                         case "1":
-                            //TODO wyswietlanie
+                            AccountantController.listAccountants();
+
+                            break;
                         case "2":
-                            //TODO dodawanie
+                            System.out.println("Podaj login: ");
+                            login = scanner.nextLine();
+                            System.out.println("Podaj haslo: ");
+                            password = scanner.nextLine();
+
+                            AccountantController.addAccountant(login, password);
+
+                            break;
                         case "3":
-                            //TODO usuwanie
+                            System.out.println("Podaj login: ");
+                            login = scanner.nextLine();
+
+                            AccountantController.removeAccountant(login);
+
+                            break;
                         case "0":
-                            //TODO powrot
+                            state = State.LOGGED_AS_ADMIN;
+                            break;
+                        default: {
+                            System.out.println("Zła odpowiedź.");
+                            state = State.ACCT_ACCOUNTS_OPTIONS;
+                        }
                     }
+                    break;
                 }
                 case COMPANY_OPTIONS: {
-                    //todo opcje firmy
+                    //todo opcje firmy dla admina
                 }
 //                case CREATING_COMPANY: {
 //                    System.out.println("Podaj nazwę nowej firmy:");
@@ -209,10 +223,17 @@ public class Main {
 
                     System.out.println("Podaj hasło:");
                     String password = scanner.nextLine();
-
-                    //todo login as acct
-
+                    boolean loginSuccess = AccountantController.loginAccountant(login, password);
+                    if (loginSuccess) {
+                        state = State.LOGGED_AS_ACCT;
+                    } else {
+                        state = State.INIT;
+                    }
                     break;
+                }
+
+                case LOGGED_AS_ACCT:{
+                    //todo opcje ksiegowego;
                 }
             }
         }

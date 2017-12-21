@@ -11,7 +11,7 @@ public class AdminView {
     public static String printAdmins(List<Admin> admins) {
         StringBuilder sb = new StringBuilder();
         for (Admin admin : admins) {
-            sb.append("Login: ").append(admin.getLogin());
+            sb.append(admin.getLogin()).append("\n");
         }
         return sb.toString();
     }

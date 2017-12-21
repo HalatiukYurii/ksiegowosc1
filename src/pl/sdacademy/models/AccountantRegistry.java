@@ -31,41 +31,31 @@ public class AccountantRegistry implements Serializable {
         }
     }
 
-    public Accountant findAccountant(String login, String password) throws AccountantNotFoundException {
+    public void findAccountant(String login, String password) throws AccountantNotFoundException {
         for (Accountant accountant : this.accountants) {
             if (accountant.getLogin().equals(login) &&
                     accountant.getPassword().equals(password)) {
-                return accountant;
+                return;
             }
         }
         throw new AccountantNotFoundException();
     }
 
-    public Accountant findAccountantByLogin(String login) throws AccountantNotFoundException {
-        for (Accountant accountant : this.accountants) {
-            if (accountant.getLogin().equals(login)) {
-                return accountant;
-            }
+    public void addAccountant(String login, String password) throws DuplicateFoundException {
+        for (Accountant accountant : accountants) {
+            if (accountant.getLogin().equals(login))
+                throw new DuplicateFoundException();
         }
-        throw new AccountantNotFoundException();
-    }
-
-    public void addAccountantAccount(String login, String password) {
         this.accountants.add(new Accountant(login, password));
     }
 
 
-    public Accountant lookForDuplicate(String login) throws DuplicateFoundException {
-        for(Accountant accountant: this.accountants) {
-            if(!accountant.getLogin().equals(login)){
-                return null;
-            }
+    public void removeAccountant(String login) throws AccountantNotFoundException {
+        for (Accountant accountant : accountants) {
+            if (accountant.getLogin().equals(login))
+                this.accountants.remove(accountant);
         }
-        throw new DuplicateFoundException();
-    }
-
-    public void removeAccountantAccount(Accountant accountant){
-        accountants.remove(accountant);
+        throw new AccountantNotFoundException();
     }
 
     public void saveData() {
