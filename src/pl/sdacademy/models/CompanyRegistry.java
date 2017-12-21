@@ -1,21 +1,18 @@
 package pl.sdacademy.models;
 
-import pl.sdacademy.exceptions.AccountantNotFoundException;
-import pl.sdacademy.exceptions.CompanyNotFoundException;
-import pl.sdacademy.exceptions.DuplicateFoundException;
-import pl.sdacademy.exceptions.IncorrectNipException;
-
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by marcin on 13.12.2017.
  */
-public class CompanyRegistry {
+public class CompanyRegistry implements Serializable{
     private static CompanyRegistry instance = null;
-
-    public static CompanyRegistry getInstance() throws DuplicateFoundException, IncorrectNipException {
-        if (instance == null) {
+    final private String filename = "data/company.dat";
+    public static CompanyRegistry getInstance() {
+        if(instance == null) {
             instance = new CompanyRegistry();
         }
         return instance;
@@ -24,11 +21,14 @@ public class CompanyRegistry {
 
     private ArrayList<Company> companies;
 
-    public CompanyRegistry() throws DuplicateFoundException, IncorrectNipException {
-        this.companies = new ArrayList<>();
-
-        this.companies.add(new Company("Ziutex sp. z o.o.", 1990, " 7251801126"));
-        this.companies.add(new Company("Krakbud s.j.", 1995, "4582668978"));
+    public CompanyRegistry() {
+        try{
+            this.companies = (ArrayList<Company>) FileHandler.deserialize(filename);
+        }catch (IOException e){
+            this.companies = new ArrayList<>();
+        }catch (ClassNotFoundException e){
+            System.err.println("Serialization error!");
+        }
     }
 
     public Company findCompany(String name) throws CompanyNotFoundException {
@@ -44,8 +44,17 @@ public class CompanyRegistry {
         return this.companies;
     }
 
+
     public void add(Company company) {
         this.companies.add(company);
+    }
+
+    public void saveData(String filename){
+        try {
+            FileHandler.serialize(this.companies, filename);
+        }catch (IOException e){
+            System.err.println("Write error or file not found.");
+        }
     }
 
     public void removeCompany(String name) throws CompanyNotFoundException {
