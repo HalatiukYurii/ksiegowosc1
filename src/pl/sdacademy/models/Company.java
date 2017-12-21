@@ -1,6 +1,7 @@
 package pl.sdacademy.models;
 
-import pl.sdacademy.exceptions.AccountantNotFoundException;
+import pl.sdacademy.exceptions.IncorrectNipException;
+import pl.sdacademy.helpers.NipValidator;
 
 import java.util.ArrayList;
 
@@ -14,10 +15,13 @@ public class Company {
     private String nip;
 
 
-    public Company(String name, int yearFound, String nip) {
-        this.name = name;
-        this.yearFound = yearFound;
-        this.nip = nip;
+    public Company(String name, int yearFound, String nip) throws IncorrectNipException {
+        if(NipValidator.validateNip(nip)) {
+            this.name = name;
+            this.yearFound = yearFound;
+            this.nip = nip;
+        }
+        throw new IncorrectNipException("Unable to create company, cause by invalid NIP number");
     }
 
     private ArrayList<String> accountantsCompany = new ArrayList<>();

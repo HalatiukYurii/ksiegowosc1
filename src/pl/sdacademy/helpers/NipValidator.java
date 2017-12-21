@@ -4,10 +4,10 @@ import pl.sdacademy.exceptions.IncorrectNipException;
 import pl.sdacademy.models.Company;
 import pl.sdacademy.models.CompanyRegistry;
 
-public class validateNip {
+public class NipValidator {
     CompanyRegistry companyRegistry;
 
-    public void validateNip(String nip) throws IncorrectNipException {
+    public static boolean validateNip(String nip) {
 
         int sum = (nip.charAt(0) * 6 +
                 nip.charAt(1) * 5 +
@@ -22,6 +22,8 @@ public class validateNip {
         sum %= 11;
 
         if (!(nip.length() == 10 && sum == nip.charAt(9))) {
-            throw new IncorrectNipException("Niepoprawny nip");
+           return false;
         }
+        return true;
     }
+}

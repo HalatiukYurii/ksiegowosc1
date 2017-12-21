@@ -5,10 +5,8 @@ import pl.sdacademy.controllers.AdminController;
 import pl.sdacademy.controllers.CompanyController;
 import pl.sdacademy.exceptions.AccountantNotFoundException;
 import pl.sdacademy.exceptions.AdminNotFoundException;
-import pl.sdacademy.models.Accountant;
-import pl.sdacademy.models.AccountantRegistry;
-import pl.sdacademy.models.Admin;
-import pl.sdacademy.models.AdminRegistry;
+import pl.sdacademy.exceptions.IncorrectNipException;
+import pl.sdacademy.models.*;
 import pl.sdacademy.views.AdminView;
 
 import javax.sound.midi.Soundbank;
@@ -223,8 +221,19 @@ public class Main {
                     int yearFound = scanner.nextInt();
                     scanner.nextLine();
 
-//                    CompanyController.createCompany(name, yearFound, nip);
+                    System.out.println("Podaj nip firmy:");
+                    String nip = scanner.nextLine();
 
+
+//                    CompanyController.createCompany(name, yearFound, nip);
+                    
+
+                    try {
+                        Company temp = new Company(name, yearFound, nip);
+                    } catch (IncorrectNipException e) {
+                        System.out.println("Podano nieprawidlowy nip, sprobuj ponownie:");
+                        e.printStackTrace();
+                    }
                     state = State.LOGGED_IN;
                     break;
                 }
