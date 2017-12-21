@@ -2,46 +2,47 @@ package pl.sdacademy.controllers;
 
 import pl.sdacademy.exceptions.AdminNotFoundException;
 import pl.sdacademy.exceptions.DuplicateFoundException;
-import pl.sdacademy.exceptions.WrongLoginException;
-import pl.sdacademy.exceptions.WrongPasswordException;
-import pl.sdacademy.models.Admin;
+import pl.sdacademy.exceptions.MinimumAccountException;
 import pl.sdacademy.models.AdminRegistry;
 import pl.sdacademy.views.AdminView;
 
-import java.util.ArrayList;
 /**
  * Created by marcin on 13.12.2017.
  */
 public class AdminController {
-    public static void addAdmin(String login, String password) throws WrongLoginException, WrongPasswordException{
+    public static void addAdmin(String login, String password) {
         try {
-            Admin temp = AdminRegistry.getInstance().lookForDuplicate(login);
-            if (temp == null) {
-                AdminRegistry.getInstance().addAdminAccount(login, password);
-                System.out.println("Dodano użytkownika o nazwie: " + login);
-            }
+            AdminRegistry.getInstance().addAdminAccount(login, password);
+            System.out.println(AdminView.printAddSuccess(login));
         } catch (DuplicateFoundException e) {
-            System.out.println("Admin o podanym loginie już istnieje!");
+            System.out.println(AdminView.printDuplicateFound(login));
         }
     }
 
-
-    public static void removeAdmin(String login) throws WrongLoginException, WrongPasswordException, DuplicateFoundException{
+    public static boolean loginAdmin(String login, String password) {
         try {
-            Admin temp = AdminRegistry.getInstance().findAdminByLogin(login);
-            if (temp != null) {
-                AdminRegistry.getInstance().removeAdminAccount(temp);
-                System.out.println("Usunięto użytkownika o nazwie: " + login);
-                temp = null;
-            }
+            AdminRegistry.getInstance().findAdmin(login, password);
+            System.out.println(AdminView.printLoginSuccess(login));
         } catch (AdminNotFoundException e) {
-            System.out.println("Nie znaleziono użytkownika");
+            System.out.println(AdminView.printNotFound(login));
+            return false;
         }
-
+        return true;
     }
 
-    public static void printAdmins() throws WrongLoginException, WrongPasswordException,DuplicateFoundException {
-        AdminView.printAdmins(AdminRegistry.getInstance().getAdmins());
+    public static void removeAdmin(String login) {
+        try {
+            AdminRegistry.getInstance().removeAdminAccount(login);
+            System.out.println(AdminView.printRemovedSuccess(login));
+        } catch (AdminNotFoundException e) {
+            System.out.println(AdminView.printNotFound(login));
+        } catch (MinimumAccountException e){
+            System.out.println(AdminView.printMinimumAccount());
+        }
+    }
+
+    public static void printAdmins() {
+        System.out.println(AdminView.printAdmins(AdminRegistry.getInstance().getAdmins()));
     }
 }
 

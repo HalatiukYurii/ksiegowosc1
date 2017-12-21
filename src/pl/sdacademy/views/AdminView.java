@@ -1,8 +1,6 @@
 package pl.sdacademy.views;
 
-import pl.sdacademy.controllers.AdminController;
 import pl.sdacademy.models.Admin;
-import pl.sdacademy.models.AdminRegistry;
 
 import java.util.List;
 
@@ -10,9 +8,35 @@ import java.util.List;
  * Created by marcin on 13.12.2017.
  */
 public class AdminView {
-    public static void printAdmins(List<Admin> admins){
-        for(Admin admin: admins){
-            System.out.println("Login: " + admin.getLogin());
+    public static String printAdmins(List<Admin> admins) {
+        StringBuilder sb = new StringBuilder();
+        for (Admin admin : admins) {
+            sb.append("Login: ").append(admin.getLogin());
         }
+        return sb.toString();
+    }
+
+    public static String printLoginSuccess(String login) {
+        return "Dzien dobry " + login;
+    }
+
+    public static String printNotFound(String login) {
+        return "Nie znaleziono uzytkownika " + login;
+    }
+
+    public static String printAddSuccess(String login){
+        return "Dodano uzytkownika " + login;
+    }
+
+    public static String printDuplicateFound(String login){
+        return "Uzytkownik " + login + " juz istnieje.";
+    }
+
+    public static String printRemovedSuccess(String login){
+        return "Usunieto uzytkownika " + login;
+    }
+
+    public static String printMinimumAccount(){
+        return "Musi byc co najmniej jeden administrator.";
     }
 }
