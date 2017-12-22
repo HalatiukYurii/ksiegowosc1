@@ -2,17 +2,8 @@ package sdacademy;
 
 import sdacademy.controllers.AccountantController;
 import sdacademy.controllers.AdminController;
-import sdacademy.controllers.CompanyController;
-import sdacademy.exceptions.AccountantNotFoundException;
-import sdacademy.exceptions.AdminNotFoundException;
-import sdacademy.exceptions.DuplicateFoundException;
-import sdacademy.exceptions.IncorrectNipException;
-import sdacademy.models.*;
-import sdacademy.views.AdminView;
 import sdacademy.models.AccountantRegistry;
 import sdacademy.models.AdminRegistry;
-
-import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 
 public class Main {
@@ -165,7 +156,21 @@ public class Main {
                     }
                     break;
                 }
+                case LOGGING_IN_AS_ACCT: {
+                    System.out.println("Podaj login:");
+                    String login = scanner.nextLine();
 
+                    System.out.println("Podaj hasło:");
+                    String password = scanner.nextLine();
+
+                    boolean loginSuccess = AdminController.loginAdmin(login, password);
+                    if (loginSuccess) {
+                        state = State.ACCT_ACCOUNTS_OPTIONS;
+                    } else {
+                        state = State.INIT;
+                    }
+                    break;
+                }
                 case ACCT_ACCOUNTS_OPTIONS: {
                     String login, password;
 
@@ -186,7 +191,6 @@ public class Main {
                             login = scanner.nextLine();
                             System.out.println("Podaj haslo: ");
                             password = scanner.nextLine();
-
                             AccountantController.addAccountant(login, password);
 
                             break;
@@ -207,60 +211,31 @@ public class Main {
                     }
                     break;
                 }
+
+                case LOGGED_AS_ACCT: {
+                    System.out.println("Co chcesz zrobic?");
+                    System.out.println("1 - wyświetl konta ksiegowych");
+                    System.out.println("2 - dodać firmę");
+                    System.out.println("3 - dodać kontrachęta");
+                    System.out.println("4 - dodać fakturę");
+                    System.out.println("0 - powrót");
+
+                    String answer = scanner.nextLine();
+                    switch (answer) {
+                        case "1":
+                            AccountantController.listAccountants();
+                        case "2":
+                            AccountantController.addCompany();
+                        case "3":
+                            AccountantController.addContrctor();
+                        case "4":
+                            AccountantController.addInvoice();
+                        case "0":
+                            state = State.ACCT_ACCOUNTS_OPTIONS;
+                    }
+                }
                 case COMPANY_OPTIONS: {
                     //todo opcje firmy dla admina
-                }
-//                case CREATING_COMPANY: {
-//                    System.out.println("Podaj nazwę nowej firmy:");
-//                    String name = scanner.nextLine();
-//
-//                    System.out.println("Podaj rok założenia nowej firmy:");
-//                    int yearFound = scanner.nextInt();
-//                    scanner.nextLine();
-//
-//                    CompanyController.createCompany(name, yearFound);
-//
-//                    state = State.COMPANY_OPTIONS;
-//                    break;
-//                }
-
-                case LOGGING_IN_AS_ACCT: {
-                    System.out.println("Podaj login:");
-                    String login = scanner.nextLine();
-
-                    System.out.println("Podaj hasło:");
-                    String password = scanner.nextLine();
-                    boolean loginSuccess = AccountantController.loginAccountant(login, password);
-                    if (loginSuccess) {
-                        state = State.LOGGED_AS_ACCT;
-                    } else {
-                        state = State.INIT;
-                    }
-                    System.out.println("Podaj rok założenia nowej firmy:");
-                    int yearFound = scanner.nextInt();
-                    scanner.nextLine();
-
-                    System.out.println("Podaj nip firmy:");
-                    String nip = scanner.nextLine();
-
-
-//                    CompanyController.createCompany(name, yearFound, nip);
-
-                    String tempName = "123";
-                    try {
-                        Company temp = new Company(tempName, yearFound, nip);
-                    } catch (IncorrectNipException e) {
-                        System.out.println("Podano nieprawidlowy nip, sprobuj ponownie:");
-                        e.printStackTrace();
-                    } catch (DuplicateFoundException e) {
-                        System.out.println("Firma o podanym nipie istnieje w bazie");
-                    }
-                    //state = State.LOGGED_IN;
-                    break;
-                }
-
-                case LOGGED_AS_ACCT:{
-                    //todo opcje ksiegowego;
                 }
             }
         }

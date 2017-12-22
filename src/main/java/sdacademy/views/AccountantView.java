@@ -1,12 +1,8 @@
 package sdacademy.views;
 
 import sdacademy.models.Accountant;
-
 import java.util.List;
 
-/**
- * Created by marcin on 13.12.2017.
- */
 public class AccountantView {
     public static String printAccountants(List<Accountant> accountants) {
         StringBuilder sb = new StringBuilder();

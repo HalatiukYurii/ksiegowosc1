@@ -8,9 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by marcin on 13.12.2017.
- */
 public class CompanyRegistry implements Serializable{
     private static CompanyRegistry instance = null;
     final private String filename = "data/company.dat";
@@ -20,7 +17,6 @@ public class CompanyRegistry implements Serializable{
         }
         return instance;
     }
-
 
     private ArrayList<Company> companies;
 
@@ -46,7 +42,6 @@ public class CompanyRegistry implements Serializable{
     public List<Company> getCompanies() {
         return this.companies;
     }
-
 
     public void add(Company company) {
         this.companies.add(company);
@@ -78,12 +73,27 @@ public class CompanyRegistry implements Serializable{
         return false;
     }
 
+    public static boolean checkCompanyByNip(String nip){
+        for(Company company : getInstance().companies) {
+            if (company.getNip().equals(nip)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Company findCompanyByNip(String nip) throws CompanyNotFoundException {
+        for(Company company : getInstance().companies){
+            if(company.getNip().equals(nip)){
+                return company;
+            }
+        }
+        throw new CompanyNotFoundException();
+    }
+
     public void assignAccountant(String name, String login) throws AccountantNotFoundException, CompanyNotFoundException {
-
        Accountant accountant = AccountantRegistry.getInstance().findAccountantByLogin(login);
-
         Company company = findCompany(name);
-
         company.assignAccountant(accountant.getLogin());
     }
 }

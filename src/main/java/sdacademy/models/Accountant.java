@@ -1,14 +1,8 @@
 package sdacademy.models;
 
-import sdacademy.exceptions.WrongLoginException;
-import sdacademy.exceptions.WrongPasswordException;
-import sdacademy.helpers.ValidateUser;
-
 import java.io.Serializable;
 
-/**
- * Created by marcin on 13.12.2017.
- */
+
 public class Accountant implements Serializable{
 
     private String login;

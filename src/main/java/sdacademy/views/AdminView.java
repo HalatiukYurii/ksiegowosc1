@@ -1,12 +1,8 @@
 package sdacademy.views;
 
 import sdacademy.models.Admin;
-
 import java.util.List;
 
-/**
- * Created by marcin on 13.12.2017.
- */
 public class AdminView {
     public static String printAdmins(List<Admin> admins) {
         StringBuilder sb = new StringBuilder();

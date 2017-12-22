@@ -5,13 +5,18 @@ import sdacademy.exceptions.DuplicateFoundException;
 import sdacademy.exceptions.WrongLoginException;
 import sdacademy.exceptions.WrongPasswordException;
 import sdacademy.helpers.ValidateUser;
-import sdacademy.models.AccountantRegistry;
+import sdacademy.models.*;
+import sdacademy.ui.CompaniesUI;
+import sdacademy.ui.ContractorUI;
+import sdacademy.ui.InvoicesUI;
 import sdacademy.views.AccountantView;
 
-/**
- * Created by marcin on 13.12.2017.
- */
 public class AccountantController {
+    private static Company company;
+    private static Contractor contractor;
+    private static Invoice invoice;
+    private static CompanyRegistry companyRegistry;
+    private static ContractorRegistry contractorRegistry;
 
     public static void addAccountant(String login, String password) {
         try{
@@ -50,5 +55,20 @@ public class AccountantController {
 
     public static void listAccountants() {
         System.out.println(AccountantView.printAccountants(AccountantRegistry.getInstance().getAccountant()));
+    }
+
+    public static void addCompany() {
+        company = CompaniesUI.addCompany();
+        companyRegistry.add(company);
+    }
+
+    public static void addContrctor(){
+        contractor = ContractorUI.addContractor();
+        contractorRegistry.addContractor(contractor);
+    }
+    public static void addInvoice(){
+        invoice = InvoicesUI.getInvoice();
+        company.addInvoice(invoice);
+        contractor.addInvoice(invoice);
     }
 }

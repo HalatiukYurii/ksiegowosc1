@@ -4,19 +4,17 @@ import sdacademy.exceptions.DuplicateFoundException;
 import sdacademy.exceptions.IncorrectNipException;
 import sdacademy.helpers.NipValidator;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by marcin on 13.12.2017.
- */
 public class Company {
-
     private String name;
     private int yearFound;
     private String nip;
+    final private String filename = "data/invoiceListCompany.dat";
 
-
-    public Company(String name, int yearFound, String nip) throws IncorrectNipException, DuplicateFoundException {
+    public Company(String name, int yearFound, String nip) throws IncorrectNipException {
         CompanyRegistry.getInstance().lookForDuplicate(nip);
 
         if (NipValidator.validateNip(nip)) {
@@ -27,10 +25,22 @@ public class Company {
         throw new IncorrectNipException("Unable to create company, cause by invalid NIP number");
     }
 
-    private ArrayList<String> accountantsCompany = new ArrayList<>();
-
     public void assignAccountant(String accountant) {
         accountantsCompany.add(accountant);
+    }
+
+    public void addInvoice(Invoice invoice){
+        invoicesListCompany.add(invoice);
+        try {
+            FileHandler.serialize(invoice, filename);
+
+        } catch (IOException e) {
+            System.err.println("Write error or file not found.");
+        }
+    }
+
+    public List<Invoice> getInvoicesListCompany(){
+        return invoicesListCompany;
     }
 
     public String getName() {
@@ -52,4 +62,8 @@ public class Company {
     public void setNip(String nip) {
         this.nip = nip;
     }
+
+    private ArrayList<String> accountantsCompany = new ArrayList<>();
+
+    private List<Invoice> invoicesListCompany = new ArrayList<>();
 }

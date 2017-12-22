@@ -41,7 +41,7 @@ public class AccountantRegistry implements Serializable {
         throw new AccountantNotFoundException();
     }
 
-    public Accountant findAccountantByLogin(String login) throws AccountantNotFoundException {
+        public Accountant findAccountantByLogin(String login) throws AccountantNotFoundException {
         for (Accountant accountant : this.accountants) {
             if (accountant.getLogin().equals(login)) {
                 return accountant;
@@ -49,8 +49,6 @@ public class AccountantRegistry implements Serializable {
         }
         throw new AccountantNotFoundException();
     }
-
-
 
     public void addAccountant(String login, String password) throws DuplicateFoundException {
         for (Accountant accountant : accountants) {

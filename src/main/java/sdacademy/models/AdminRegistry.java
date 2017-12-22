@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * Created by marcin on 13.12.2017.
- */
 public class AdminRegistry implements Serializable {
     private static AdminRegistry instance = null;
     final private String filename = "data/admin.dat";
