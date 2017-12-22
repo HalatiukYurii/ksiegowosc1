@@ -1,4 +1,4 @@
-package sdacademy.models;
+package main.java.sdacademy.models;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package sdacademy.models;
+package main.java.sdacademy.models;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -20,7 +20,7 @@ public class CompanyRegistry implements Serializable{
 
     private ArrayList<Company> companies;
     
-    public CompanyRegistry() {
+    private CompanyRegistry() {
         try{
             this.companies = (ArrayList<Company>) FileHandler.deserialize(filename);
         }catch (IOException e){

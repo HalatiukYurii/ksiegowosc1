@@ -1,7 +1,8 @@
-package sdacademy.models;
+package main.java.sdacademy.models;;
 
-import sdacademy.exceptions.AccountantNotFoundException;
-import sdacademy.exceptions.DuplicateFoundException;
+
+import main.java.sdacademy.exceptions.AccountantNotFoundException;
+import main.java.sdacademy.exceptions.DuplicateFoundException;
 
 import java.io.IOException;
 import java.io.Serializable;

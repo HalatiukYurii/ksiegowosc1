@@ -1,8 +1,8 @@
-package pl.sdacademy.models;
+package main.java.sdacademy.models;
 
-import pl.sdacademy.exceptions.AdminNotFoundException;
-import pl.sdacademy.exceptions.DuplicateFoundException;
-import pl.sdacademy.exceptions.MinimumAccountException;
+import main.java.sdacademy.exceptions.AdminNotFoundException;
+import main.java.sdacademy.exceptions.DuplicateFoundException;
+import main.java.sdacademy.exceptions.MinimumAccountException;
 
 import java.io.IOException;
 import java.io.Serializable;

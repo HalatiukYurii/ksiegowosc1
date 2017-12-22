@@ -1,4 +1,4 @@
-package sdacademy.controllers;
+package main.java.sdacademy.controllers;
 
 /**
  * Created by marcin on 13.12.2017.

@@ -1,9 +1,10 @@
-package pl.sdacademy.controllers;
+package main.java.sdacademy.controllers;
 
-import pl.sdacademy.exceptions.*;
-import pl.sdacademy.helpers.ValidateUser;
-import pl.sdacademy.models.AdminRegistry;
-import pl.sdacademy.views.AdminView;
+
+import main.java.sdacademy.exceptions.*;
+import main.java.sdacademy.helpers.ValidateUser;
+import main.java.sdacademy.models.AdminRegistry;
+import main.java.sdacademy.views.AdminView;
 
 /**
  * Created by marcin on 13.12.2017.

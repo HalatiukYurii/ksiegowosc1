@@ -1,9 +1,10 @@
-package pl.sdacademy;
+package main.java.sdacademy;
 
-import pl.sdacademy.controllers.AccountantController;
-import pl.sdacademy.controllers.AdminController;
-import pl.sdacademy.models.AccountantRegistry;
-import pl.sdacademy.models.AdminRegistry;
+
+import main.java.sdacademy.controllers.AccountantController;
+import main.java.sdacademy.controllers.AdminController;
+import main.java.sdacademy.models.AccountantRegistry;
+import main.java.sdacademy.models.AdminRegistry;
 
 import java.util.Scanner;
 

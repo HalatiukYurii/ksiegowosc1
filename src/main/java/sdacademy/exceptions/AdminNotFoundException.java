@@ -1,4 +1,4 @@
-package sdacademy.exceptions;
+package main.java.sdacademy.exceptions;
 
 /**
  * Created by marcin on 13.12.2017.

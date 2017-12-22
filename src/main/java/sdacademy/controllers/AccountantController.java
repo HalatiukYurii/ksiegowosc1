@@ -1,12 +1,13 @@
-package pl.sdacademy.controllers;
+package main.java.sdacademy.controllers;
 
-import pl.sdacademy.exceptions.AccountantNotFoundException;
-import pl.sdacademy.exceptions.DuplicateFoundException;
-import pl.sdacademy.exceptions.WrongLoginException;
-import pl.sdacademy.exceptions.WrongPasswordException;
-import pl.sdacademy.helpers.ValidateUser;
-import pl.sdacademy.models.AccountantRegistry;
-import pl.sdacademy.views.AccountantView;
+
+import main.java.sdacademy.exceptions.AccountantNotFoundException;
+import main.java.sdacademy.exceptions.DuplicateFoundException;
+import main.java.sdacademy.exceptions.WrongLoginException;
+import main.java.sdacademy.exceptions.WrongPasswordException;
+import main.java.sdacademy.helpers.ValidateUser;
+import main.java.sdacademy.models.AccountantRegistry;
+import main.java.sdacademy.views.AccountantView;
 
 /**
  * Created by marcin on 13.12.2017.

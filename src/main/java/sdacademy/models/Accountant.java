@@ -1,8 +1,4 @@
-package sdacademy.models;
-
-import pl.sdacademy.exceptions.WrongLoginException;
-import pl.sdacademy.exceptions.WrongPasswordException;
-import pl.sdacademy.helpers.ValidateUser;
+package main.java.sdacademy.models;
 
 import java.io.Serializable;
 

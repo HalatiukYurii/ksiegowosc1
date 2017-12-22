@@ -1,6 +1,7 @@
-package pl.sdacademy.views;
+package main.java.sdacademy.views;
 
-import pl.sdacademy.models.Admin;
+
+import main.java.sdacademy.models.Admin;
 
 import java.util.List;
 

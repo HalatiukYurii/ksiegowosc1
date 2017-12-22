@@ -1,14 +1,15 @@
-package pl.sdacademy.helpers;
+package main.java.sdacademy.helpers;
 
-import pl.sdacademy.exceptions.WrongLoginException;
-import pl.sdacademy.exceptions.WrongPasswordException;
+
+import main.java.sdacademy.exceptions.WrongLoginException;
+import main.java.sdacademy.exceptions.WrongPasswordException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class ValidateUser {
-    public static void validateLogin (String login) throws WrongLoginException{
+    public static void validateLogin (String login) throws WrongLoginException {
         Pattern pattern = Pattern.compile("[a-z0-9.]");
         Matcher matcher = pattern.matcher(login);
 
@@ -17,7 +18,7 @@ public class ValidateUser {
         }
     }
 
-    public static void validatePassword (String password) throws WrongPasswordException{
+    public static void validatePassword (String password) throws WrongPasswordException {
         if(password.length() < 6 || password.contains(" ")){
             throw new WrongPasswordException();
         }

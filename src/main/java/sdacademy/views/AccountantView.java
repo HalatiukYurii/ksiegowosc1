@@ -1,6 +1,7 @@
-package sdacademy.views;
+package main.java.sdacademy.views;
 
-import sdacademy.models.Accountant;
+
+import main.java.sdacademy.models.Accountant;
 
 import java.util.List;
 

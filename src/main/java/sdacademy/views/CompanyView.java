@@ -1,6 +1,8 @@
-package sdacademy.views;
+package main.java.sdacademy.views;
 
-import sdacademy.models.Company;
+
+
+import main.java.sdacademy.models.Company;
 
 import java.util.List;
 

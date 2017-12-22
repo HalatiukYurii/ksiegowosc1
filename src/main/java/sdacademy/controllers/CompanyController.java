@@ -1,8 +1,10 @@
-package sdacademy.controllers;
+package main.java.sdacademy.controllers;
 
-import sdacademy.models.Company;
-import sdacademy.models.CompanyRegistry;
-import sdacademy.views.CompanyView;
+
+import main.java.sdacademy.models.Company;
+import main.java.sdacademy.models.CompanyRegistry;
+import main.java.sdacademy.views.CompanyView;
+
 
 /**
  * Created by marcin on 13.12.2017.
